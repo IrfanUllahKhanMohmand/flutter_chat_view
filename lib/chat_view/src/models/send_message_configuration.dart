@@ -68,6 +68,9 @@ class SendMessageConfiguration {
   /// Enable/disable send image from camera. Enabled by default.
   final bool enableCameraImagePicker;
 
+  /// Enable/disable video picker. Disabled by default.
+  final bool enableVideoPicker;
+
   /// Color of mic icon when replying to some voice message.
   final Color? micIconColor;
 
@@ -91,6 +94,7 @@ class SendMessageConfiguration {
     this.allowRecordingVoice = true,
     this.enableCameraImagePicker = true,
     this.enableGalleryImagePicker = true,
+    this.enableVideoPicker = false,
     this.voiceRecordingConfiguration,
     this.micIconColor,
     this.cancelRecordConfiguration,

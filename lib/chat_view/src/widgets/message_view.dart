@@ -24,6 +24,7 @@ import 'package:google_apis_test/chat_view/src/widgets/chat_view_inherited_widge
 import 'package:flutter/material.dart';
 
 import 'package:google_apis_test/chat_view/src/extensions/extensions.dart';
+import 'package:google_apis_test/chat_view/src/widgets/video_message_view.dart';
 import '../utils/constants/constants.dart';
 import 'image_message_view.dart';
 import 'text_message_view.dart';
@@ -229,6 +230,14 @@ class _MessageViewState extends State<MessageView>
                     messageReactionConfig: messageConfig?.messageReactionConfig,
                     inComingChatBubbleConfig: widget.inComingChatBubbleConfig,
                     outgoingChatBubbleConfig: widget.outgoingChatBubbleConfig,
+                  );
+                } else if (widget.message.messageType.isVideo) {
+                  return VideoMessageView(
+                    message: widget.message,
+                    isMessageBySender: widget.isMessageBySender,
+                    videoMessageConfig: messageConfig?.imageMessageConfig,
+                    messageReactionConfig: messageConfig?.messageReactionConfig,
+                    highlightScale: widget.highlightScale,
                   );
                 } else if (widget.message.messageType.isCustom &&
                     messageConfig?.customMessageBuilder != null) {

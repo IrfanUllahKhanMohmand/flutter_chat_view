@@ -172,4 +172,17 @@ class ChatController {
   ChatUser getUserFromId(String userId) => userId == currentUser.id
       ? currentUser
       : otherUsers.firstWhere((element) => element.id == userId);
+
+  void replaceMessage(Message newMessage) {
+    final index =
+        initialMessageList.indexWhere((message) => message.id == newMessage.id);
+    if (index != -1) {
+      initialMessageList[index] = newMessage;
+      if (!messageStreamController.isClosed) {
+        messageStreamController.sink.add(initialMessageList);
+      }
+    } else {
+      throw Exception('Message with ID ${newMessage.id} not found.');
+    }
+  }
 }

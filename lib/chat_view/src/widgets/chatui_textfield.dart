@@ -41,6 +41,7 @@ class ChatUITextField extends StatefulWidget {
     required this.onPressed,
     required this.onRecordingComplete,
     required this.onImageSelected,
+    required this.onVideoSelected,
   });
 
   /// Provides configuration of default text field in chat.
@@ -60,6 +61,9 @@ class ChatUITextField extends StatefulWidget {
 
   /// Provides callback when user select images from camera/gallery.
   final StringsCallBack onImageSelected;
+
+  /// Provides callback when user select video
+  final StringsCallBack onVideoSelected;
 
   @override
   State<ChatUITextField> createState() => _ChatUITextFieldState();
@@ -228,6 +232,20 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
                     return Row(
                       children: [
                         if (!isRecordingValue) ...[
+                          if (sendMessageConfig?.enableVideoPicker ?? false)
+                            IconButton(
+                              constraints: const BoxConstraints(),
+                              onPressed: (textFieldConfig?.enabled ?? true)
+                                  ? () => _onVideoIconPressed(
+                                        ImageSource.gallery,
+                                        config: sendMessageConfig
+                                            ?.imagePickerConfiguration,
+                                      )
+                                  : null,
+                              icon: const Icon(
+                                Icons.videocam_outlined,
+                              ),
+                            ),
                           if (sendMessageConfig?.enableCameraImagePicker ??
                               true)
                             IconButton(
@@ -379,6 +397,25 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
       widget.onImageSelected(imagePath ?? '', '');
     } catch (e) {
       widget.onImageSelected('', e.toString());
+    }
+  }
+
+  void _onVideoIconPressed(
+    ImageSource imageSource, {
+    ImagePickerConfiguration? config,
+  }) async {
+    try {
+      final XFile? image = await _imagePicker.pickVideo(
+        source: imageSource,
+      );
+      String? imagePath = image?.path;
+      if (config?.onImagePicked != null) {
+        String? updatedImagePath = await config?.onImagePicked!(imagePath);
+        if (updatedImagePath != null) imagePath = updatedImagePath;
+      }
+      widget.onVideoSelected(imagePath ?? '', '');
+    } catch (e) {
+      widget.onVideoSelected('', e.toString());
     }
   }
 

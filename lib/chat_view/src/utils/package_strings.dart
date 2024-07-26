@@ -32,6 +32,7 @@ class PackageStrings {
   static const String reactionPopupTitle =
       "Tap and hold to multiply your reaction";
   static const String photo = "Photo";
+  static const String video = "Video";
   static const String send = "Send";
   static const String you = "You";
   static const String report = "Report";

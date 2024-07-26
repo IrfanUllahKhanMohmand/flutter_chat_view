@@ -77,6 +77,22 @@ class ReplyMessageView extends StatelessWidget {
             ),
           ],
         ),
+      MessageType.video => Row(
+          children: [
+            Icon(
+              Icons.video_library,
+              size: 20,
+              color:
+                  sendMessageConfig?.replyMessageColor ?? Colors.grey.shade700,
+            ),
+            Text(
+              PackageStrings.video,
+              style: TextStyle(
+                color: sendMessageConfig?.replyMessageColor ?? Colors.black,
+              ),
+            ),
+          ],
+        ),
       MessageType.custom when customMessageReplyViewBuilder != null =>
         customMessageReplyViewBuilder!(message),
       MessageType.custom || MessageType.text => Text(

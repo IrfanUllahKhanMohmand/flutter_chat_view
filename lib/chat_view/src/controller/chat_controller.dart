@@ -174,6 +174,10 @@ class ChatController {
       : otherUsers.firstWhere((element) => element.id == userId);
 
   void replaceMessage(Message newMessage) {
+    for (var i = 0; i < initialMessageList.length; i++) {
+      print('Message ID: ${initialMessageList[i].id}');
+    }
+
     final index =
         initialMessageList.indexWhere((message) => message.id == newMessage.id);
     if (index != -1) {

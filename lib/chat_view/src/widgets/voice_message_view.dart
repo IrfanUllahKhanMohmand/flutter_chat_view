@@ -53,15 +53,19 @@ class _VoiceMessageViewState extends State<VoiceMessageView> {
     widget.onMaxDuration?.call(_duration?.inMilliseconds ?? 0);
 
     _audioPlayer.onPlayerStateChanged.listen((state) {
-      setState(() {
-        _playerState = state;
-      });
+      if (mounted) {
+        setState(() {
+          _playerState = state;
+        });
+      }
     });
 
     _audioPlayer.onPositionChanged.listen((pos) {
-      setState(() {
-        _position = pos;
-      });
+      if (mounted) {
+        setState(() {
+          _position = pos;
+        });
+      }
     });
   }
 

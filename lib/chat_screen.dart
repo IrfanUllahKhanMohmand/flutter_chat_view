@@ -134,6 +134,7 @@ class ChatScreen extends StatelessWidget {
         } else if (change.type == DocumentChangeType.modified) {
           Map<String, dynamic> data = change.doc.data() as Map<String, dynamic>;
           final message = Message.fromJson(data);
+          print(message.toJson());
           _chatController.replaceMessage(message);
         }
       }
@@ -207,14 +208,14 @@ class ChatScreen extends StatelessWidget {
                     color: theme.themeIconColor,
                   ),
                 ),
-                IconButton(
-                  tooltip: 'Simulate Message receive',
-                  onPressed: receiveMessage,
-                  icon: Icon(
-                    Icons.supervised_user_circle,
-                    color: theme.themeIconColor,
-                  ),
-                ),
+                // IconButton(
+                //   tooltip: 'Simulate Message receive',
+                //   onPressed: receiveMessage,
+                //   icon: Icon(
+                //     Icons.supervised_user_circle,
+                //     color: theme.themeIconColor,
+                //   ),
+                // ),
               ],
             ),
             chatBackgroundConfig: ChatBackgroundConfiguration(
